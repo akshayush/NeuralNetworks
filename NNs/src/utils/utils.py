@@ -1,4 +1,4 @@
-from unittest import TestLoader
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -18,6 +18,9 @@ from torch import optim
 import torch
 import torchvision
 import torch.nn as nn
+import torchvision.transforms as transforms
+
+
 
 
 def CIFAR10_data(batchsize=128):
@@ -28,10 +31,14 @@ def CIFAR10_data(batchsize=128):
   return trainloader,testloader
 
 
-def cnn_evaluation(dataloader,net):
+
+
+def cnn_evaluation(dataloader,net,device):
   total,correct=0,0
   for data in dataloader:
     inputs,labels=data
+    if device:
+      inputs,labels=inputs.to(device),labels.to(device)
     outputs=net(inputs)
     _,pred=torch.max(outputs.data,1)
     total+=labels.size(0)

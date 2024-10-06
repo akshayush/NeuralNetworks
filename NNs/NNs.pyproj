@@ -26,6 +26,7 @@
     <Compile Include="src\app.py" />
     <Compile Include="src\models\FirstCNNs.py" />
     <Compile Include="src\models\FirstNNs.py" />
+    <Compile Include="src\models\large_cnn.py" />
     <Compile Include="src\models\__init__.py" />
     <Compile Include="src\utils\utils.py" />
   </ItemGroup>

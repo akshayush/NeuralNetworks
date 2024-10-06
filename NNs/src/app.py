@@ -20,17 +20,64 @@ from models.FirstNNs import FirstNetwork_Parameters,FirstNetwork_Linear_Optim,Fi
 from utils.utils import accuracy, cnn_fit,get_test_train_data,fit,fit_optim,fit_v3,CIFAR10_data
 from torch import optim
 from models.FirstCNNs import LeNet
-
+import torchvision.models 
+import torch.nn as nn
+from models.large_cnn import CIFAR10_data_transformed,gn_evaluation,large_cnn_fit,vgg_model,resnet18_model,inceptionv3_model
 
 
 def __main__():
+  
+## Please uncomment the below lines of code for Le Net
+## Inception_v3
   torch.manual_seed(0)
-  net=LeNet()
+  device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+  print(device)
+  net=inceptionv3_model()
+  net=net.to(device)
   tic=time.time()
-  trainloader,testloader=CIFAR10_data(batchsize=128)
-  cnn_fit(trainloader,testloader,net)
+  trainloader,testloader=CIFAR10_data_transformed(batchsize=16,size=299)
+  large_cnn_fit(trainloader,testloader,net,device,model="Inception",lr=0.01)
   toc=time.time()
   print("Time Taken is "+str(toc-tic))
+
+
+## Please uncomment the below lines of code for Le Net
+## VGG
+  #torch.manual_seed(0)
+  #device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+  #print(device)
+  #net=vgg_model()
+  #net=net.to(device)
+  #tic=time.time()
+  #trainloader,testloader=CIFAR10_data_transformed(batchsize=8)
+  #large_cnn_fit(trainloader,testloader,net,device,model="VGG",lr=0.05)
+  #toc=time.time()
+  #print("Time Taken is "+str(toc-tic))
+
+## Please uncomment the below lines of code for Le Net
+## ResNet
+  #torch.manual_seed(0)
+  #device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+  #print(device)
+  #net=resnet18_model()
+  #net=net.to(device)
+  #tic=time.time()
+  #trainloader,testloader=CIFAR10_data_transformed(batchsize=16)
+  #large_cnn_fit(trainloader,testloader,net,device,model="Resnet",lr=0.01)
+  #toc=time.time()
+  #print("Time Taken is "+str(toc-tic))
+
+## Please uncomment the below lines of code for Le Net
+##LeNet
+  #torch.manual_seed(0)
+  #net=LeNet()
+  #tic=time.time()
+  #trainloader,testloader=CIFAR10_data(batchsize=128)
+  #cnn_fit(trainloader,testloader,net)
+  #toc=time.time()
+  #print("Time Taken is "+str(toc-tic))
+#LeNet
+
   #fn = FirstNetwork_Parameters() ## FirstNetwork_Linear_Optim
   #fn = FirstNetwork_Linear_Optim() ## 
   #fn=FirstNetwork_Sequential()

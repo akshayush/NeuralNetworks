@@ -19,6 +19,7 @@ import torch
 from models.FirstNNs import FirstNetwork_Parameters,FirstNetwork_Linear_Optim,FirstNetwork_Sequential
 from utils.utils import accuracy, cnn_fit,get_test_train_data,fit,fit_optim,fit_v3,CIFAR10_data
 from torch import optim
+import utils.interpreting_cnn
 from models.FirstCNNs import LeNet
 import torchvision.models 
 import torch.nn as nn
@@ -26,19 +27,21 @@ from models.large_cnn import CIFAR10_data_transformed,gn_evaluation,large_cnn_fi
 
 
 def __main__():
-  
+  utils.interpreting_cnn.cam('gradcamplusplus')
+
 ## Please uncomment the below lines of code for Le Net
 ## Inception_v3
-  torch.manual_seed(0)
-  device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-  print(device)
-  net=inceptionv3_model()
-  net=net.to(device)
-  tic=time.time()
-  trainloader,testloader=CIFAR10_data_transformed(batchsize=16,size=299)
-  large_cnn_fit(trainloader,testloader,net,device,model="Inception",lr=0.01)
-  toc=time.time()
-  print("Time Taken is "+str(toc-tic))
+
+  #torch.manual_seed(0)
+  #device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+  #print(device)
+  #net=inceptionv3_model()
+  #net=net.to(device)
+  #tic=time.time()
+  #trainloader,testloader=CIFAR10_data_transformed(batchsize=16,size=299)
+  #large_cnn_fit(trainloader,testloader,net,device,model="Inception",lr=0.01)
+  #toc=time.time()
+  #print("Time Taken is "+str(toc-tic))
 
 
 ## Please uncomment the below lines of code for Le Net
